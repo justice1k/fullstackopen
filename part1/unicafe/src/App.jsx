@@ -4,6 +4,13 @@ const Header = ({title})  => <h1>{title}</h1>
 
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
+const Stats = () => {
+  return (
+    <div>
+      <h1>Statistics</h1>
+    </div>
+  )
+}
 
 
 const App = () => {
