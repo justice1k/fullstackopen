@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const App = () => {
   const anecdotes = [
@@ -10,36 +10,45 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
-  const random = () => Math.floor(Math.random() * anecdotes.length)
+  ];
 
-   
-  const [selected, setSelected] = useState(random)
-  const [points, setPoints] = useState(Array(8).fill(0))
+  const random = () => Math.floor(Math.random() * anecdotes.length);
+
+  const [selected, setSelected] = useState(random());
+  const [points, setPoints] = useState(Array(anecdotes.length).fill(0));
+  const [highest, setHighest] = useState(0);
 
   const voted = () => {
-    const updatedPoints = [...points]
-    updatedPoints[selected] += 1
+    // Create a copy of the points array and update the selected anecdote's votes
+    const updatedPoints = [...points];
+    updatedPoints[selected] += 1;
 
-    setPoints(updatedPoints)
-  }
+    // Update the points state
+    setPoints(updatedPoints);
+
+    // Find the index of the anecdote with the most votes
+    const maxVotes = Math.max(...updatedPoints);
+    const maxVotesIndex = updatedPoints.indexOf(maxVotes);
+
+    // Update the highest state
+    setHighest(maxVotesIndex);
+  };
 
   return (
     <div>
       <h2>Anecdote of the day</h2>
-      <p2>{anecdotes[selected]} </p2>
-      <br></br>
-      <p3>has {points[selected]} votes</p3>
-      <br></br>
-      <button onClick={voted}>
-        Vote
-      </button>
-      <button onClick={() => setSelected(random)}>Next anecdote</button>
+      <p>{anecdotes[selected]}</p>
+      <br />
+      <p>has {points[selected]} votes</p>
+      <br />
+      <button onClick={voted}>Vote</button>
+      <button onClick={() => setSelected(random())}>Next anecdote</button>
 
       <h2>Anecdote with most votes</h2>
-
+      <p>{anecdotes[highest]}</p>
+      <p>has {points[highest]} votes</p>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
