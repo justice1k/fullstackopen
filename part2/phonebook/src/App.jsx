@@ -8,6 +8,16 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [query, setQuery] = useState('')
+  const [match, setMatch] = useState(false)
+
+  const handleSearchChange = (event) => {
+    console.log("Searchig for: ", event.target.value)
+    setQuery(event.target.value)
+    const isMatch = persons.some(person => person.name.includes(event.target.value))
+    setMatch(isMatch)
+
+  }
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -22,7 +32,6 @@ const App = () => {
     event.preventDefault()
 
     const ifExists = persons.find(person => person.name === newName && person.number === newNumber)
-
     if(ifExists != undefined){
       alert(`${newName} is already added to phonebook`)
       setNewName("")
@@ -41,10 +50,17 @@ const App = () => {
     }
   }
 
+  const contactsToShow = query ? persons.filter(person => person.name.includes(query)) : persons;
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        Search: <input value={query} onChange={handleSearchChange}/>
+      </div>
+
       <form onSubmit={addContact}>
+        <h3>Add a new contact</h3>
         <div>
           name: <input
           value={newName} 
@@ -61,7 +77,8 @@ const App = () => {
 
       </form>
       <h2>Numbers</h2>
-      {persons.map((person,i) => <li key={i}>{person.name} {person.number}</li>)}
+      {contactsToShow.map((person,i) => <li key={i}>{person.name} {person.number}</li>)}
+      {/* {persons.map((person,i) => <li key={i}>{person.name} {person.number}</li>)} */}
     </div>
   )
 }
