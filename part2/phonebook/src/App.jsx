@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Persons from './Persons'
+import PersonForm from './PersonForm'
+import Search from './Search'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -9,15 +12,6 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [query, setQuery] = useState('')
-  const [match, setMatch] = useState(false)
-
-  const handleSearchChange = (event) => {
-    console.log("Searchig for: ", event.target.value)
-    setQuery(event.target.value)
-    const isMatch = persons.some(person => person.name.includes(event.target.value))
-    setMatch(isMatch)
-
-  }
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -31,8 +25,8 @@ const App = () => {
   const addContact = (event) => {
     event.preventDefault()
 
-    const ifExists = persons.find(person => person.name === newName && person.number === newNumber)
-    if(ifExists != undefined){
+    const ifExists = persons.some(person => person.name === newName && person.number === newNumber)
+    if(ifExists){
       alert(`${newName} is already added to phonebook`)
       setNewName("")
       setNewNumber("")
@@ -50,35 +44,20 @@ const App = () => {
     }
   }
 
-  const contactsToShow = query ? persons.filter(person => person.name.includes(query)) : persons;
-
+  const contactsToShow = query ? persons.filter(person => person.name.includes(query)) : persons; 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        Search: <input value={query} onChange={handleSearchChange}/>
-      </div>
-
-      <form onSubmit={addContact}>
-        <h3>Add a new contact</h3>
-        <div>
-          name: <input
-          value={newName} 
-          onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input type="number"
-          value={newNumber}
-          onChange={handleNumberChange} required />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-
-      </form>
+        <Search query={query} setQuery={setQuery} />
+      <PersonForm 
+        addContact={addContact}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      {contactsToShow.map((person,i) => <li key={i}>{person.name} {person.number}</li>)}
-      {/* {persons.map((person,i) => <li key={i}>{person.name} {person.number}</li>)} */}
+      <Persons contacts={contactsToShow} />
     </div>
   )
 }
