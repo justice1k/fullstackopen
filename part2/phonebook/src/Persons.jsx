@@ -3,7 +3,7 @@ const Persons = ({contacts}) => {
 
     return(
         <>
-        {contacts.map((person,i) => <li key={i}>{person.name} {person.number}</li>)}
+        {contacts.map((person) => <li key={person.id}>{person.name} {person.number}</li>)}
         </>
     )
 }
