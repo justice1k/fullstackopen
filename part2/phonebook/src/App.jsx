@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState,useEffect } from 'react'
 import Persons from './Persons'
 import PersonForm from './PersonForm'
 import Search from './Search'
 import axios from 'axios'
+import contactsService from './services/contacts'
 
 
 const App = () => {
@@ -14,20 +16,18 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
+    contactsService
+    .getAll()
+    .then(
+      response => setPersons(response)
+    )
+    console.log('promise fulfilled')
       },[])
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
   const handleNumberChange = (event) =>{
-    console.log(event.target.value)
     setNewNumber(event.target.value)
   }
 
@@ -43,16 +43,15 @@ const App = () => {
       alert("Please enter a name and number to add to phonebook")
     }else{
       const newContact = {
-        // id: persons.length + 2,
         name: newName,
         number: newNumber
       }
 
-      axios
-      .post('http://localhost:3001/persons', newContact)
+      contactsService
+      .create(newContact)
       .then(response => {
-        console.log(response.data)
-        setPersons(persons.concat(response.data))
+        console.log(response)
+        setPersons(persons.concat(response))
         setNewName("")
         setNewNumber("")
       })
