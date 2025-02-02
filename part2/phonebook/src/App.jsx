@@ -20,7 +20,7 @@ const App = () => {
         console.log('promise fulfilled')
         setPersons(response.data)
       })
-  },[])
+      },[])
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -43,12 +43,20 @@ const App = () => {
       alert("Please enter a name and number to add to phonebook")
     }else{
       const newContact = {
+        // id: persons.length + 2,
         name: newName,
         number: newNumber
       }
-      setPersons(persons.concat(newContact))
-      setNewName("")
-      setNewNumber("")
+
+      axios
+      .post('http://localhost:3001/persons', newContact)
+      .then(response => {
+        console.log(response.data)
+        setPersons(persons.concat(response.data))
+        setNewName("")
+        setNewNumber("")
+      })
+
       console.log("contact added")
     }
   }
