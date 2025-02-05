@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState,useEffect } from 'react'
 import Persons from './Persons'
 import PersonForm from './PersonForm'
@@ -60,6 +59,14 @@ const App = () => {
     }
   }
 
+  const removeContact = id => {
+    console.log('deleting ', id )
+    contactsService
+    .deleteContact(id)
+    const contacts = persons.filter(item => item.id != id)
+    setPersons(contacts)
+  }
+
   const contactsToShow = query ? persons.filter(person => person.name.includes(query)) : persons; 
   return (
     <div>
@@ -74,7 +81,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons contacts={contactsToShow} />
+      <Persons deletePerson={removeContact} contacts={contactsToShow} />
     </div>
   )
 }

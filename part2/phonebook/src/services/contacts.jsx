@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import axios from 'axios'
 const baseURL = 'http://localhost:3001/persons'
 
@@ -13,7 +13,16 @@ const create = newContact => {
 
 //DELETE soon
 
+const deleteContact = id => {
+    
+    axios
+    .delete(`${baseURL}/${id}`)
+    .then( response => console.log('deleted ', response.data.id))
+
+}
+
 export default{
     getAll,
-    create
+    create,
+    deleteContact
 }
