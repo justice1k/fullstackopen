@@ -59,12 +59,16 @@ const App = () => {
     }
   }
 
-  const removeContact = id => {
+  const removeContact = (id,name) => {
+
+    const remove = window.confirm(`Delete ${name}?`)
     console.log('deleting ', id )
-    contactsService
-    .deleteContact(id)
-    const contacts = persons.filter(item => item.id != id)
-    setPersons(contacts)
+     if(remove){
+      contactsService.deleteContact(id)
+      const contacts = persons.filter(item => item.id != id)
+      setPersons(contacts)
+      } else {console.log('delete aborted')}
+  
   }
 
   const contactsToShow = query ? persons.filter(person => person.name.includes(query)) : persons; 
