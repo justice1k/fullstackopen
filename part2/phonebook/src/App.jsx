@@ -4,6 +4,7 @@ import PersonForm from './PersonForm'
 import Search from './Search'
 import axios from 'axios'
 import contactsService from './services/contacts'
+import Notification from './Notification'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [query, setQuery] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -50,6 +52,10 @@ const App = () => {
       .create(newContact)
       .then(response => {
         console.log(response)
+        setMessage(`Added ${response.name}`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 3000)
         setPersons(persons.concat(response))
         setNewName("")
         setNewNumber("")
@@ -75,6 +81,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
         <Search query={query} setQuery={setQuery} />
         <h3>Add a new</h3>
       <PersonForm 
