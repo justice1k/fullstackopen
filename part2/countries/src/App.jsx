@@ -29,7 +29,7 @@ console.log(toShow.length)
   return (
     <>
       <Search country={country} setCountry={setCountry} />
-      <Info names={toShow} />
+      <Info names={toShow} setCountry={setCountry}/>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import countryService from './services/countries'
 
-const Info = ({names}) => {
+const Info = ({names, setCountry}) => {
     const [details, setDetails] = useState(null)
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const Info = ({names}) => {
 
     return(
         <div>
-            {names.map((item,index) => <ul key={index}>{item}</ul>)}
+            {names.map((item,index) => <ul key={index}>{item}<button onClick={(e) => setCountry(item)}>Show</button></ul>)}
         </div>
     )
     
