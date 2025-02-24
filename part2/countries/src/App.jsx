@@ -5,10 +5,11 @@ import Info from './Info'
 
 
 
+
 function App() {
   const [country, setCountry] = useState('')
   const [names, setNames] = useState([])
-
+  const apiKey = import.meta.env.VITE_KEY
 
   useEffect(() => {
     console.log('effect')
@@ -18,9 +19,9 @@ function App() {
       setNames(response)
     })
     console.log(names)
-
   }, [])
 
+  console.log("API KEY: ", apiKey)
 
 const toShow = country ? names.filter(item => item.toLowerCase().includes(country.toLowerCase())) : [];
 

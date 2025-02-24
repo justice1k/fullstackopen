@@ -3,13 +3,20 @@ import countryService from './services/countries'
 
 const Info = ({names, setCountry}) => {
     const [details, setDetails] = useState(null)
+    const [weather, setWeather] = useState(null)
+    const [weatherIcon, setWeatherIcon] = useState(null)
+    const apiKey = import.meta.env.VITE_KEY
 
     useEffect(() => {
         if(names.length === 1){
-        countryService.getInfo(names)
-        .then( response => {
-            setDetails(response)
-        })
+            const fetchData = async () => {
+                const countryDetails = await countryService.getInfo(names);
+                setDetails(countryDetails)
+
+            }
+
+            fetchData()
+
         }
 
     },[names])
@@ -29,6 +36,7 @@ const Info = ({names, setCountry}) => {
                 <h2>Languages</h2>
                 {Object.entries(details.languages).map(([code,name]) => <li key={code}>{name}</li>)}
                 <p>{details.flag}</p>
+                <h2>Weather in {details.capital}</h2>
             </div>
         )
     }else if(names.length === 0){

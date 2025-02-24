@@ -10,4 +10,15 @@ const getInfo = (item) => {
     return axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${item}`).then(response => response.data)
 }
 
-export default {getCountry, getInfo}
+const getWeather = (capital, apiKey) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid={${apiKey}}&units=metric`
+    return axios.get(url).then(response => response.data)
+}
+
+const getIcon = (code) => {
+    const url = `https://openweathermap.org/img/wn/${code}@2x.png`
+
+    return axios.get(url).then(response => response.data)
+}
+
+export default {getCountry, getInfo, getWeather, getIcon}
