@@ -10,6 +10,8 @@ const getInfo = (item) => {
     return axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${item}`).then(response => response.data)
 }
 
+// Auth issues with weather
+
 const getWeather = (capital, apiKey) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid={${apiKey}}&units=metric`
     return axios.get(url).then(response => response.data)

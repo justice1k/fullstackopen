@@ -5,7 +5,6 @@ const Info = ({names, setCountry}) => {
     const [details, setDetails] = useState(null)
     const [weather, setWeather] = useState(null)
     const [weatherIcon, setWeatherIcon] = useState(null)
-    const apiKey = import.meta.env.VITE_KEY
 
     useEffect(() => {
         if(names.length === 1){
