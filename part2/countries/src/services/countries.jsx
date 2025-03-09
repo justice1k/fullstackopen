@@ -13,14 +13,14 @@ const getInfo = (item) => {
 // Auth issues with weather
 
 const getWeather = (capital, apiKey) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid={${apiKey}}&units=metric`
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${apiKey}&units=metric`
     return axios.get(url).then(response => response.data)
 }
 
 const getIcon = (code) => {
-    const url = `https://openweathermap.org/img/wn/${code}@2x.png`
+    
 
-    return axios.get(url).then(response => response.data)
+    return `https://openweathermap.org/img/wn/${code}@2x.png`
 }
 
 export default {getCountry, getInfo, getWeather, getIcon}
