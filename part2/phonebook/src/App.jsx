@@ -25,6 +25,8 @@ const App = () => {
     console.log('promise fulfilled')
       },[])
 
+    
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
