@@ -11,13 +11,12 @@ const create = newContact => {
     return axios.post(baseURL, newContact).then(response => response.data)
 }
 
-//DELETE soon
 
 const deleteContact = id => {
     
     axios
     .delete(`${baseURL}/${id}`)
-    .then( response => console.log('deleted ', response.data.id))
+    .then( response => console.log(response.data))
 
 }
 
