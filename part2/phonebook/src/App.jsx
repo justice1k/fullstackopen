@@ -85,7 +85,6 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notification message={message} />
         <Search query={query} setQuery={setQuery} />
-        <h3>Add a new</h3>
       <PersonForm 
         addContact={addContact}
         newName={newName}
